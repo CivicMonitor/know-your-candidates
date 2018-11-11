@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 // import firebase from '../firebase';
 import Header from './Header';
-import Candidate from './Candidate';
+import CandidateList from './CandidateList';
 import Search from './Search';
-
-
 
 class Landing extends Component {
 
@@ -12,8 +10,7 @@ class Landing extends Component {
         super(props);
     
         this.state = {
-            politicians : [],
-            isLoaded: false
+            searchTerm: ''
         }
     }
 
@@ -21,25 +18,30 @@ class Landing extends Component {
         fetch("https://civicmonitor.herokuapp.com/api/v2/politicians")
         .then((res)=>res.json())
         .then((res)=> {
-            console.log(res.data)
             this.setState({
-                isLoaded: true,
               politicians: res.data
             })
         })
       }
 
-      
-  
+    //   componentWillMount() {
+    //       this.setState({query: this.state.politicians})
+    //   }
 
-  
-    
+
+      handleInputChange = (event) => {
+        event.preventDefault();
+        this.setState({
+          searchTerm: event.target.value
+        });
+      }
+
+
+
   render() {
 
-    const { isLoaded, politicians } = this.state;
-    if (!isLoaded) {
-        return <div>loading...</div>
-    } else {
+    
+   
     return (
       <div>
         <Header/>
@@ -52,10 +54,11 @@ class Landing extends Component {
                             <div className="col-lg-12 mx-auto d-flex justify-content-center">
                                 <div className="home-title text-center align-self-center">
                                     <h1 className="pt-2">Know your candidates</h1>
-                                    <h5 className="home-desc pt-4 mx-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium omnis aspernatur sint. Eum esse, sapiente amet doloribus harum excepturi eveniet. Inventore, sapiente ullam ex tenetur est delectus quis. Omnis, maiores!.</h5>
+                                    <h5 className="home-desc pt-4 mx-auto">Learn More about those seeking to earn you votes. Go in depth on their issue positions and what they have been talking about. And compare them with just one click.</h5>
                                    
                                     <div>
-                                    <Search/>
+                                    <Search onChange = {this.handleInputChange} />
+                                    <p>{this.state.searchTerm}</p>
                                     </div>
                                   
                             </div>
@@ -72,26 +75,14 @@ class Landing extends Component {
             <div className="row">
                 <div className="col-md-5 mx-auto text-center mb-5">
                     <i className="mdi mdi-diamond text-primary font-20 mr-2"></i>
-                    <h3 className="mb-3 title">2019 Presidentials candidates</h3>
+                    <h3 className="mb-3 title">The 2019 Presidential Candidates</h3>
                    
                 </div>
             </div>
 
-            <div className="row">
+            <CandidateList politicians={this.state.politicians}/>
 
-            {politicians.map(politician => (
-                <Candidate
-                        key={politician.id}
-                        id={politician.id}
-                        name= {politician.name}
-                        image = {politician.image}
-                         
-                />
-            )
-               
-        )}
-
-        </div>
+         
          
         </div>
     </section>
@@ -102,52 +93,49 @@ class Landing extends Component {
         <div className="row">
             <div className="col-md-8 mx-auto text-center mb-5">
                 <i className="mdi mdi-creation text-primary font-20 mr-2"></i>
-                <h3 className="mb-3 title">Compare candidates</h3>
-                <p className="text-muted font-14">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit ipsam beatae atque ipsa officiis fugiat quidem nostrum, exercitationem magni suscipit quia, id excepturi veritatis labore esse, magnam commodi natus nihil?.</p>
+                <h3 className="mb-3 title">Compare Candidates</h3>
+                <p className="text-muted font-14">Struggling to make up your mind on which candidate has a better program for you? You can easily compare where they stand on the issues you care about. </p>
             </div>
         </div>
         <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-6">
                 <div className="card shadow-inset">
                     <div className="card-body">
                         <div className="features-cantain text-center">
                             <i className="mdi mdi-account-multiple-plus font-24 bg-soft-pink"></i>
-                            <h4 className="mb-3">By Political Party</h4>
-                            <p className="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id optio error, nisi mollitia debitis dolorem adipisci veritatis nobis culpa, alias, corrupti at blanditiis necessitatibus. Consequuntur rerum tempore et dolorem in..</p>
+                            <h4 className="mb-3">By Issue Position</h4>
+                            <p className="text-muted">Compare two candidates on any of the 16 issues we are gathering data on. Choose the issue and the two candidates and compare, Here you will have a side by side comparison of the two of candidates on that one issue.</p>
                         </div>
                     </div>                            
                 </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-6">
                 <div className="card shadow-inset">
                     <div className="card-body">
                         <div className="features-cantain text-center">
                             <i className="mdi mdi-google-wallet font-24 bg-soft-warning"></i>
-                            <h4 className="mb-3">By Policy </h4>
-                            <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus cumque sit sint temporibus, consectetur placeat ut nihil. Quis ducimus a provident similique? Perspiciatis, quam. Non culpa quibusdam vel fuga error!.</p>
+                            <h4 className="mb-3">By Political Party </h4>
+                            <p className="text-muted">Compare two parties. When you select two parties to be compared, they appear side by side, with a list of the two candidates, their bio and their positions underneath. </p>
                         </div>
                     </div>                            
                 </div>
             </div>
-            <div className="col-md-4">
-                <div className="card shadow-inset">
-                    <div className="card-body">
-                        <div className="features-cantain text-center">
-                            <i className="mdi mdi-forum font-24 bg-soft-success"></i>
-                            <h4 className="mb-3">By region</h4>
-                            <p className="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque soluta, impedit nobis laboriosam deleniti eligendi dolorem, nam velit sunt incidunt dolore quasi recusandae illum eveniet. Dicta quibusdam itaque odio est!.</p>
-                        </div>
-                    </div>                            
-                </div>
-            </div>
+          
         </div>
     </div>
+
+  
 </section>
+
+<footer className="container">
+<p>© Powered by Civic Monitor</p>
+</footer>
+
 
       </div>
     );
   }
 }
-}
+
 
 export default Landing;

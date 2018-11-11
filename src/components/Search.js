@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
+// import Candidate from './Candidate';
+// import Suggestion from './Suggestion';
 
 var divStyle = {
     width: '100%',
@@ -6,34 +8,17 @@ var divStyle = {
      borderRadius: '5px',
       border: '1px solid #efefef',
       padding: '10px'
-  }
+}
 
   
-class Search extends Component {
-    state = {
-        name : ""
-    };
-
-    habdleNameChange = event => {
-        this.setState({
-            name: event.target.value
-        });
-    };
-
-    render() {
-        return(
-            <div className="mt-5">
+const Search = (props) =>  (
+            <form className="mt-5">
                 <input type="text" 
-                    onChange = {this.habdleNameChange}
-                    id="name" 
-                    value={this.state.name}
-                    placeholder="Search prefered candidate..."  
+                    placeholder="Search preferred candidate..."                                    
+                    value={props.searchTerm}
                     style={divStyle}
                     />
-             </div>
-        );
-    }
-  }
-
+             </form>
+);
 
 export default Search;

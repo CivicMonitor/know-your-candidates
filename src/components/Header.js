@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "@reach/router";
+import logo from "../logo.png";
+
+const logoStyle = {
+    maxHeight: '100px'
+  };
 
 class Header extends Component {
     render() {
@@ -11,7 +16,7 @@ class Header extends Component {
                         
                         <Link to="/" className="logo">
                             <span>
-                                <img src="#" alt="Know your candidates" />
+                                <img src={logo} style={logoStyle} alt="Know your candidates" />
                             </span>
                         </Link>
                     </div>
@@ -20,10 +25,16 @@ class Header extends Component {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarCollapse">
                         <ul className="navbar-nav ml-auto navbar-center" id="mySidenav">
-                            <li className="nav-item active">
+                            <li className="nav-item">
                             <Link to="/" className="nav-link">Home</Link>
                         
-                            </li>                  
+                            </li>   
+                            
+                            <li className="nav-item">
+                            <Link to="/about" className="nav-link">About</Link>
+                        
+                            </li>  
+
                             <li className="nav-item">
                             <Link to="/compare" className="nav-link">Compare candidates</Link>
                                

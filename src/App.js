@@ -4,6 +4,7 @@ import Landing from './components/Landing';
 import CandidateDetails from './components/CandidateDetails';
 import CompareCandidates from './components/CompareCandidates';
 import { Router } from "@reach/router";
+import About from './components/About';
 
 
 
@@ -23,7 +24,6 @@ componentDidMount() {
     fetch("https://civicmonitor.herokuapp.com/api/v2/politicians")
     .then((res)=>res.json())
     .then((res)=> {
-        console.log(res.data)
         this.setState({
             isLoaded: true,
           politicians: res.data
@@ -55,6 +55,7 @@ componentDidMount() {
          />
         ))}
         <CompareCandidates path="/compare" />
+        <About  path="/about" />
       </Router>  
     );
   }

@@ -17,28 +17,29 @@ class Candidate extends React.Component{
   
     return(
 
-      <Link to= {`/details/${id}`} className="col-md-4">
+      <div className="col-md-4">
       <div className="card pricing-card">
 
-          <div className="card-body">
-         
-              <div className="pricingTable">  
-                  <span className="pricing-icon">
+      <div className="card-body">
+     
+          <div className="pricingTable">  
+              <span className="pricing-icon">
 
-                  <Image cloudName="civic-monitor" publicId={image} width="300" height="200" crop="scale" style={imageStyle}/>
-   
-                 </span>
-                  <h5 className="py-3 m-0 text-primary">{name}</h5>                                    
-                  <p></p>
+              <Image cloudName="civic-monitor" publicId={image} width="300" height="200" crop="scale" style={imageStyle}/>
 
-                  <Link to= {`/details/${id}`} className="btn btn-orange px-4">Learn more</Link>
+             </span>
+              <h5 className="py-3 m-0 text-primary">{name}</h5>                                    
+              <p></p>
 
-              </div>
-    
+              <Link to= {`/details/${id}`} className="btn btn-orange px-4">Learn more</Link>
+
           </div>
-          </div> 
-          </Link>
 
+      </div>
+      </div> 
+
+      </div>
+     
     )
   }
 }
